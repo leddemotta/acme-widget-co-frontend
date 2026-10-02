@@ -1,10 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { BasketBreakdown, Product, DeliveryRule, SpecialOffer, TestPreset } from './types';
-import { fetchCatalog, calculateBasketApi } from './services/api';
+import { fetchCatalog, calculateBasketApi, devLog } from './services/api';
 import { Header, ProductGrid, TestPresets, RulesCard, Basket } from './components';
 
-const APP_VERSION = '1.0.5';
-const FREE_SHIPPING_THRESHOLD = 90.0;
+const APP_VERSION = '1.0.6';
 
 const TEST_PRESETS: TestPreset[] = [
   { id: 'p1', name: 'Example 1', codes: ['B01', 'G01'], expectedTotal: 37.85 },
@@ -33,12 +32,15 @@ export function App() {
   });
   const [activePreset, setActivePreset] = useState<string | null>(null);
 
-  // Carrega catálogo inicial da API PHP
+  // Load initial catalog from the PHP API
   useEffect(() => {
     let isMounted = true;
 
     async function loadCatalog() {
       const result = await fetchCatalog();
+
+      devLog('Catalog loaded into state:', result);
+
       if (isMounted) {
         setProducts(result.data.products);
         setDeliveryRules(result.data.deliveryRules);
@@ -61,7 +63,7 @@ export function App() {
     setBackendSource(result.source);
   }, []);
 
-  // Manipuladores de cesta
+  // Basket action handlers
   const handleAddProduct = (code: string) => {
     setActivePreset(null);
     const updated = [...basketCodes, code];
@@ -87,16 +89,13 @@ export function App() {
     updateBasket([...preset.codes]);
   };
 
-  // Agrupa itens para exibição na lista do carrinho
+  // Group items for display in the shopping basket
   const groupedItems = products
     .map((product) => {
       const count = basketCodes.filter((c) => c === product.code).length;
       return { product, count };
     })
     .filter((entry) => entry.count > 0);
-
-  // Cálculo de desconto e subtotal para Frete Grátis
-  const subtotalAfterDiscount = Math.max(0, breakdown.subtotal - breakdown.discount);
 
   return (
     <div className="app-container">
@@ -106,16 +105,16 @@ export function App() {
         <div className="catalog-column">
           <ProductGrid products={products} onAdd={handleAddProduct} />
 
+          <RulesCard
+            deliveryRules={deliveryRules}
+            specialOffers={specialOffers}
+          />
+
           <TestPresets
             presets={TEST_PRESETS}
             activePreset={activePreset}
             currentTotal={breakdown.total}
             onApplyPreset={handleApplyPreset}
-          />
-
-          <RulesCard
-            deliveryRules={deliveryRules}
-            specialOffers={specialOffers}
           />
         </div>
 
@@ -123,8 +122,6 @@ export function App() {
           groupedItems={groupedItems}
           totalItemsCount={basketCodes.length}
           breakdown={breakdown}
-          subtotalAfterDiscount={subtotalAfterDiscount}
-          freeShippingThreshold={FREE_SHIPPING_THRESHOLD}
           onAddProduct={handleAddProduct}
           onRemoveProduct={handleRemoveProduct}
           onClearBasket={handleClearBasket}

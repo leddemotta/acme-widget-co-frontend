@@ -17,7 +17,6 @@ export function Header({ backendSource, version }: HeaderProps) {
         </div>
         <div>
           <h1 className="brand-title">Acme Widget Co</h1>
-          <p className="brand-subtitle">Sales System Proof of Concept</p>
         </div>
       </div>
 

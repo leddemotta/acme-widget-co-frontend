@@ -1,13 +1,10 @@
 import type { BasketBreakdown, Product } from '../types';
-import { DeliveryProgressBar } from './DeliveryProgressBar';
 import { BasketItemRow } from './BasketItemRow';
 
 interface BasketProps {
   groupedItems: { product: Product; count: number }[];
   totalItemsCount: number;
   breakdown: BasketBreakdown;
-  subtotalAfterDiscount: number;
-  freeShippingThreshold: number;
   onAddProduct: (code: string) => void;
   onRemoveProduct: (code: string) => void;
   onClearBasket: () => void;
@@ -17,8 +14,6 @@ export function Basket({
   groupedItems,
   totalItemsCount,
   breakdown,
-  subtotalAfterDiscount,
-  freeShippingThreshold,
   onAddProduct,
   onRemoveProduct,
   onClearBasket,
@@ -41,16 +36,9 @@ export function Basket({
           </div>
         </div>
 
-        {/* Free Delivery Progress Bar */}
-        <DeliveryProgressBar
-          subtotalAfterDiscount={subtotalAfterDiscount}
-          threshold={freeShippingThreshold}
-        />
-
         {/* Basket Items List / Empty State */}
         {groupedItems.length === 0 ? (
           <div className="empty-basket">
-            <div className="empty-basket-icon">🛒</div>
             <p>Your basket is currently empty.</p>
             <p style={{ fontSize: '0.8rem', marginTop: '0.25rem' }}>
               Click a product or select a test preset above.

@@ -3,6 +3,5 @@ export { ProductCard } from './ProductCard';
 export { ProductGrid } from './ProductGrid';
 export { TestPresets } from './TestPresets';
 export { RulesCard } from './RulesCard';
-export { DeliveryProgressBar } from './DeliveryProgressBar';
 export { BasketItemRow } from './BasketItemRow';
 export { Basket } from './Basket';

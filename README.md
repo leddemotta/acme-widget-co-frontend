@@ -1,6 +1,6 @@
 # Acme Widget Co - Frontend
 
-![Version](https://img.shields.io/badge/version-1.0.5-blue.svg)
+![Version](https://img.shields.io/badge/version-1.0.6-blue.svg)
 
 Frontend interface for the Acme Widget Co sales system built with React, TypeScript, and Vite.
 
