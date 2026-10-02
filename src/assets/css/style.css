@@ -243,6 +243,36 @@ button {
     margin-bottom: 2rem;
 }
 
+
+.no-products {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: 1px dashed var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+}
+
+.no-products-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+    opacity: 0.5;
+}
+
+.no-products-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 0.35rem;
+}
+
+.no-products-hint {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+}
+
 .product-card {
     background: var(--bg-card);
     backdrop-filter: blur(12px);

@@ -3,7 +3,7 @@ import type { BasketBreakdown, Product, DeliveryRule, SpecialOffer, TestPreset }
 import { fetchCatalog, calculateBasketApi, devLog } from './services/api';
 import { Header, ProductGrid, TestPresets, RulesCard, Basket } from './components';
 
-const APP_VERSION = '1.0.6';
+const APP_VERSION = '1.0.8';
 
 const TEST_PRESETS: TestPreset[] = [
   { id: 'p1', name: 'Example 1', codes: ['B01', 'G01'], expectedTotal: 37.85 },
@@ -105,17 +105,21 @@ export function App() {
         <div className="catalog-column">
           <ProductGrid products={products} onAdd={handleAddProduct} />
 
-          <RulesCard
-            deliveryRules={deliveryRules}
-            specialOffers={specialOffers}
-          />
+          {deliveryRules.length === 0 ? null : (
+            <RulesCard
+              deliveryRules={deliveryRules}
+              specialOffers={specialOffers}
+            />
+          )}
 
-          <TestPresets
-            presets={TEST_PRESETS}
-            activePreset={activePreset}
-            currentTotal={breakdown.total}
-            onApplyPreset={handleApplyPreset}
-          />
+          {products.length !== 0 ? (
+            <TestPresets
+              presets={TEST_PRESETS}
+              activePreset={activePreset}
+              currentTotal={breakdown.total}
+              onApplyPreset={handleApplyPreset}
+            />
+          ) : null}
         </div>
 
         <Basket
