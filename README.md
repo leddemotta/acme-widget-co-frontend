@@ -1,3 +1,26 @@
+# Acme Widget Co - Frontend
+
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+
+Frontend interface for the Acme Widget Co sales system built with React, TypeScript, and Vite.
+
+## Tech Stack
+- **Framework**: React 19 + TypeScript
+- **Bundler**: Vite
+- **Linter**: Oxlint
+
+## Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start local development server
+npm run dev
+```
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
